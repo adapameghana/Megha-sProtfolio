@@ -5,7 +5,6 @@ import { ProjectCard } from "@/components/ProjectCard";
 type Group = {
   key: string;
   label: string;
-  note: string;
   items: Project[];
 };
 
@@ -34,7 +33,6 @@ function buildGroups(projects: Project[]): Group[] {
     groups.push({
       key: "personal",
       label: "Personal Projects",
-      note: "Built end to end — problem, architecture, and code all mine.",
       items: personal,
     });
   }
@@ -43,7 +41,6 @@ function buildGroups(projects: Project[]): Group[] {
     groups.push({
       key: "professional",
       label: professionalLabel(professional),
-      note: "Production work for an employer. Described at the level my resume states — no internal architecture or client data.",
       items: professional,
     });
   }
@@ -70,14 +67,13 @@ export function ProjectGroups({ projects, headingLevel = 3 }: ProjectGroupsProps
     <div className="space-y-16">
       {groups.map((group) => (
         <section key={group.key} aria-labelledby={`group-${group.key}`}>
-          <div className="flex flex-col gap-2 border-b border-rule-strong pb-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8">
+          <div className="border-b border-rule-strong pb-4">
             <GroupHeading
               id={`group-${group.key}`}
               className="font-mono text-xs tracking-widest text-ink uppercase"
             >
               {group.label}
             </GroupHeading>
-            <p className="measure text-xs text-ink-faint sm:text-right">{group.note}</p>
           </div>
 
           <div

@@ -1,19 +1,10 @@
-import { site } from "@/lib/site";
 import { social } from "@/data/social";
 
 export function Footer() {
-  const year = new Date().getFullYear();
-
   return (
     <footer className="border-t border-rule">
-      <div className="shell flex flex-col gap-6 py-10 sm:flex-row sm:items-center sm:justify-between">
-        <p className="font-mono text-xs text-ink-faint">
-          © {year} {site.name}
-          <span className="mx-2 text-rule-strong">·</span>
-          Built with Next.js &amp; Tailwind CSS
-        </p>
-
-        <ul className="flex items-center gap-6">
+      <div className="shell flex py-10">
+        <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
           {social.map((link) => (
             <li key={link.id}>
               <a
