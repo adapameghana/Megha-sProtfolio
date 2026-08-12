@@ -20,7 +20,7 @@ export function Skills() {
                 {category.items.map((item) => (
                   <li
                     key={item}
-                    className="rounded-sm bg-paper-sunken px-2.5 py-1 font-mono text-xs text-ink-muted"
+                    className="chip chip-solid"
                   >
                     {item}
                   </li>

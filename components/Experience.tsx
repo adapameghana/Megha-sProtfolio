@@ -49,7 +49,7 @@ export function Experience() {
                 {role.technologies.map((tech) => (
                   <li
                     key={tech}
-                    className="rounded-sm border border-rule px-2.5 py-1 font-mono text-xs text-ink-muted"
+                    className="chip"
                   >
                     {tech}
                   </li>

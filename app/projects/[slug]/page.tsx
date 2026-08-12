@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Building2, MoveRight } from "lucide-react";
 import { GithubIcon } from "@/components/BrandIcons";
 import { caseStudyProjects, getProject } from "@/data/projects";
+import { caseStudyJsonLd } from "@/lib/jsonld";
 
 export function generateStaticParams() {
   return caseStudyProjects.map((project) => ({ slug: project.slug }));
@@ -62,6 +63,10 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
 
   return (
     <main id="main" className="flex-1">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(caseStudyJsonLd(project)) }}
+      />
       <article className="shell py-12 sm:py-16">
         <Link
           href="/#projects"
@@ -95,7 +100,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
                 href={links.github}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex items-center gap-2 rounded-sm border border-rule-strong px-4 py-2.5 font-mono text-xs tracking-widest uppercase transition-colors hover:border-accent hover:text-accent"
+                className="inline-flex items-center gap-2 rounded-sm border border-ink-faint px-4 py-2.5 font-mono text-xs tracking-widest uppercase transition-colors hover:border-accent hover:text-accent"
               >
                 <GithubIcon className="size-3.5" />
                 View code
@@ -106,7 +111,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
                 href={links.demo}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex items-center gap-2 rounded-sm border border-rule-strong px-4 py-2.5 font-mono text-xs tracking-widest uppercase transition-colors hover:border-accent hover:text-accent"
+                className="inline-flex items-center gap-2 rounded-sm border border-ink-faint px-4 py-2.5 font-mono text-xs tracking-widest uppercase transition-colors hover:border-accent hover:text-accent"
               >
                 <ArrowUpRight className="size-3.5" aria-hidden="true" />
                 Live demo
@@ -181,7 +186,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/projects/[sl
                     {group.items.map((item) => (
                       <li
                         key={item}
-                        className="rounded-sm border border-rule px-2.5 py-1 font-mono text-xs text-ink-muted"
+                        className="chip"
                       >
                         {item}
                       </li>

@@ -19,7 +19,10 @@
   /* Ink */
   --ink: #1a1814;
   --ink-muted: #575147;
-  --ink-faint: #8a8377;
+  /* Verified against WCAG AA at 4.5:1 on paper, paper-raised, and
+     paper-sunken. It carries 13px labels and captions, so it cannot be
+     lightened without failing small-text contrast. */
+  --ink-faint: #726b5f;
 
   /* Accent — deep pine. Carries links, active states, and section markers. */
   --accent: #0b5d51;
@@ -159,6 +162,36 @@
 
   .measure {
     max-width: var(--measure);
+  }
+
+  /**
+   * Technology badge. Used for skills, stacks, and keyword lists.
+   *
+   * `overflow-wrap: anywhere` is load-bearing, not cosmetic: values like
+   * "SentenceTransformers (all-MiniLM-L6-v2)" render wider than a card is at
+   * a 320px viewport, and without it they push the page into horizontal
+   * scroll (PRD §18).
+   */
+  .chip {
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    border: 1px solid var(--rule);
+    border-radius: 0.125rem;
+    padding: 0.25rem 0.625rem;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    line-height: 1.5;
+    color: var(--ink-muted);
+  }
+
+  .chip-solid {
+    border-color: transparent;
+    background-color: var(--paper-sunken);
+  }
+
+  .chip-raised {
+    background-color: var(--paper-raised);
   }
 
   /* Small caps mono label used for section eyebrows and metadata */

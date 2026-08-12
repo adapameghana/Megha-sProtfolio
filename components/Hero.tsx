@@ -39,7 +39,9 @@ export function Hero() {
               <a
                 href={site.resume.href}
                 download={site.resume.filename}
-                className="group inline-flex items-center gap-2.5 rounded-sm border border-rule-strong px-6 py-3.5 font-mono text-xs tracking-widest uppercase transition-colors hover:border-accent hover:text-accent"
+                /* border-ink-faint, not border-rule: an interactive boundary
+                   needs 3:1 contrast under WCAG 1.4.11 */
+                className="group inline-flex items-center gap-2.5 rounded-sm border border-ink-faint px-6 py-3.5 font-mono text-xs tracking-widest uppercase transition-colors hover:border-accent hover:text-accent"
               >
                 <ArrowDownToLine
                   className="size-4 transition-transform group-hover:translate-y-0.5"
@@ -56,7 +58,7 @@ export function Hero() {
               {site.keywords.map((keyword) => (
                 <li
                   key={keyword}
-                  className="rounded-sm border border-rule bg-paper-raised px-3 py-1.5 font-mono text-xs text-ink-muted"
+                  className="chip chip-raised"
                 >
                   {keyword}
                 </li>
