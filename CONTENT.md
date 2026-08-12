@@ -61,7 +61,29 @@ may well ask you to walk through it.
 Currently: ingestion → chunking → embedding → vector store → query expansion →
 semantic retrieval → hybrid ranking → grounded explanation → API response.
 
-### 5. Production URL — Vercel environment variable
+### 5. Real profile photo — `public/images/` + `lib/site.ts`
+
+The About section currently shows `public/images/profile-placeholder.png`, a
+generic silhouette. It is also what `lib/jsonld.ts` publishes as the `image` in
+the Person structured data, so swap it **before the site is indexed** — a stock
+silhouette is what a search engine would otherwise attach to your name.
+
+1. Save the photo into `public/images/`.
+2. Point `portrait.src` in `lib/site.ts` at it.
+3. Delete `profile-placeholder.png`.
+
+```ts
+export const portrait: Portrait | null = {
+  src: "/images/meghana.jpg",   // <- your file
+  alt: site.name,               // already correct, leave it
+  // focus: "50% 20%",          // only if the 4:5 crop cuts the head
+};
+```
+
+Any dimensions work — the frame is a fixed 4:5 crop and the photo is
+cover-fitted, never stretched. Use at least 640px on the short edge.
+
+### 6. Production URL — Vercel environment variable
 
 `lib/site.ts` falls back to `https://meghana-portfolio.vercel.app`. Set
 `NEXT_PUBLIC_SITE_URL` in the Vercel project to the real domain, or the sitemap,
@@ -101,6 +123,12 @@ with a case study. Two honest ways to close the gap:
   visible to a technical interviewer.
 
 ---
+
+## How to add the profile photo
+
+`public/images/` holds it, `portrait` in `lib/site.ts` points at it, and
+`components/Portrait.tsx` frames it. Set `portrait` to `null` to remove the
+photo entirely — About falls back to prose-only with no layout change.
 
 ## How to add a project
 

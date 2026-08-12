@@ -1,4 +1,4 @@
-import { site } from "@/lib/site";
+import { site, portrait } from "@/lib/site";
 import { social } from "@/data/social";
 import { experience } from "@/data/experience";
 
@@ -21,6 +21,10 @@ export function personJsonLd() {
     description: site.description,
     email: `mailto:${site.email}`,
     url: site.url,
+    /* Absolute, not root-relative: a consumer of this markup is not resolving
+       against the page it was found on. Omitted entirely when unset — an
+       empty `image` is worse than none. */
+    ...(portrait && { image: `${site.url}${portrait.src}` }),
     address: {
       "@type": "PostalAddress",
       addressLocality: "Hyderabad",

@@ -13,6 +13,26 @@ export type SocialLink = {
 };
 
 /* -------------------------------------------------------------------------- */
+/* Portrait                                                                    */
+/* -------------------------------------------------------------------------- */
+
+export type Portrait = {
+  /** Path under `public/`, always starting with `/` — e.g. "/images/meghana.jpg" */
+  src: string;
+  /**
+   * Describes the person, not the file. A screen reader reads this aloud, so
+   * "Meghana Adapa" is right and "profile picture" is not.
+   */
+  alt: string;
+  /**
+   * `object-position` for the fixed 4:5 frame. Portraits usually want the crop
+   * weighted above centre so a head sits in the upper third rather than being
+   * cut off. Only change this if the default crops the photo badly.
+   */
+  focus?: string;
+};
+
+/* -------------------------------------------------------------------------- */
 /* Skills                                                                      */
 /* -------------------------------------------------------------------------- */
 
