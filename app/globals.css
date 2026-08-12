@@ -1,0 +1,207 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Design tokens
+   ---------------------------------------------------------------------------
+   Every colour in the UI resolves through one of these semantic variables.
+   Nothing downstream hardcodes a hex value. Adding a dark theme later means
+   redefining this block under :root[data-theme="dark"] and nothing else.
+--------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light;
+
+  /* Surfaces — warm paper stock rather than pure white */
+  --paper: #faf8f3;
+  --paper-raised: #ffffff;
+  --paper-sunken: #f2eee4;
+
+  /* Ink */
+  --ink: #1a1814;
+  --ink-muted: #575147;
+  --ink-faint: #8a8377;
+
+  /* Accent — deep pine. Carries links, active states, and section markers. */
+  --accent: #0b5d51;
+  --accent-hover: #084941;
+  --accent-wash: #e8f0ed;
+
+  /* Lines */
+  --rule: #e3ddd0;
+  --rule-strong: #cfc7b6;
+
+  /* Focus ring */
+  --focus: #0b5d51;
+
+  /* Type scale — fluid, clamped so 320px and 1920px both read well */
+  --step--1: clamp(0.82rem, 0.79rem + 0.14vw, 0.9rem);
+  --step-0: clamp(0.97rem, 0.93rem + 0.2vw, 1.09rem);
+  --step-1: clamp(1.17rem, 1.1rem + 0.34vw, 1.38rem);
+  --step-2: clamp(1.4rem, 1.29rem + 0.55vw, 1.74rem);
+  --step-3: clamp(1.69rem, 1.51rem + 0.87vw, 2.2rem);
+  --step-4: clamp(2.03rem, 1.76rem + 1.33vw, 2.79rem);
+  --step-5: clamp(2.44rem, 2.05rem + 1.96vw, 3.53rem);
+  --step-6: clamp(2.93rem, 2.36rem + 2.83vw, 4.46rem);
+
+  /* Rhythm */
+  --gutter: clamp(1.25rem, 0.9rem + 1.75vw, 2.5rem);
+  --measure: 68ch;
+  --nav-h: 4.25rem;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-raised: var(--paper-raised);
+  --color-paper-sunken: var(--paper-sunken);
+
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-wash: var(--accent-wash);
+
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+
+  --font-display: var(--font-instrument-serif), Georgia, serif;
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --text-xs: var(--step--1);
+  --text-base: var(--step-0);
+  --text-lg: var(--step-1);
+  --text-xl: var(--step-2);
+  --text-2xl: var(--step-3);
+  --text-3xl: var(--step-4);
+  --text-4xl: var(--step-5);
+  --text-5xl: var(--step-6);
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+
+@layer base {
+  html {
+    /* Anchor nav must not park headings under the sticky bar */
+    scroll-padding-top: calc(var(--nav-h) + 1.5rem);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: var(--step-0);
+    line-height: 1.65;
+    /* Paper grain: a barely-there texture so large empty areas have depth */
+    background-image: radial-gradient(
+      var(--rule) 0.5px,
+      transparent 0.5px
+    );
+    background-size: 28px 28px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Visible focus on keyboard only — PRD §21 */
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--paper);
+  }
+
+  /* Diagrams and screenshots must never force horizontal scroll — PRD §18 */
+  img,
+  svg,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Utilities
+--------------------------------------------------------------------------- */
+
+@layer utilities {
+  .shell {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .measure {
+    max-width: var(--measure);
+  }
+
+  /* Small caps mono label used for section eyebrows and metadata */
+  .label {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* Underline that draws in from the left on hover */
+  .link-rule {
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    transition: background-size 260ms ease;
+  }
+
+  .link-rule:hover,
+  .link-rule:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Motion — PRD §21 gap: honour prefers-reduced-motion everywhere
+--------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
