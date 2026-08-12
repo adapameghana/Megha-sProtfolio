@@ -11,6 +11,14 @@ export function generateStaticParams() {
   return caseStudyProjects.map((project) => ({ slug: project.slug }));
 }
 
+/**
+ * Only the slugs above exist. Without this, an unknown slug is rendered on
+ * demand and the notFound() thrown inside the page produces Next's bare error
+ * shell — no layout, no nav, content only in the client payload. With it, the
+ * request never reaches this page and the real 404 is served instead.
+ */
+export const dynamicParams = false;
+
 export async function generateMetadata({
   params,
 }: PageProps<"/projects/[slug]">): Promise<Metadata> {
