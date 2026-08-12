@@ -21,7 +21,7 @@ export function Contact() {
       <Reveal>
         <a
           href={`mailto:${site.email}`}
-          className="link-rule inline-block font-display text-3xl break-all text-accent"
+          className="link-rule inline-block font-display text-3xl font-semibold tracking-tight break-all text-accent"
         >
           {site.email}
         </a>

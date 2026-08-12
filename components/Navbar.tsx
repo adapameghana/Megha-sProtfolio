@@ -78,7 +78,7 @@ export function Navbar() {
       >
         <Link
           href="/"
-          className="font-display text-xl leading-none tracking-tight"
+          className="font-display text-xl leading-none font-semibold tracking-tight"
           onClick={() => setOpen(false)}
         >
           {site.name}
@@ -155,7 +155,9 @@ export function Navbar() {
                     <span className="font-mono text-xs text-ink-faint">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="font-display text-2xl">{s.label}</span>
+                    <span className="font-display text-2xl font-semibold tracking-tight">
+                      {s.label}
+                    </span>
                   </a>
                 </li>
               ))}

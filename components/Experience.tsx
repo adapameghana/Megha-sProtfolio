@@ -11,8 +11,12 @@ export function Experience() {
     >
       <ol className="relative">
         {experience.map((role, i) => (
-          <Reveal key={`${role.company}-${role.role}`} delay={i * 0.05}>
-            <li className="relative border-l border-rule pb-14 pl-6 last:pb-0 sm:pl-10">
+          <Reveal
+            key={`${role.company}-${role.role}`}
+            delay={i * 0.05}
+            as="li"
+            className="relative border-l border-rule pb-14 pl-6 last:pb-0 sm:pl-10"
+          >
               {/* Timeline node */}
               <span
                 aria-hidden="true"
@@ -55,7 +59,6 @@ export function Experience() {
                   </li>
                 ))}
               </ul>
-            </li>
           </Reveal>
         ))}
       </ol>

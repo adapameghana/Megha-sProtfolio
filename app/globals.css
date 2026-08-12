@@ -68,7 +68,10 @@
   --color-rule: var(--rule);
   --color-rule-strong: var(--rule-strong);
 
-  --font-display: var(--font-instrument-serif), Georgia, serif;
+  /* Display and body are the same family — headings separate by weight and
+     size. Kept as its own token so a display face can be reintroduced in one
+     place if that ever changes. */
+  --font-display: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 
@@ -112,10 +115,18 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    font-weight: 400;
-    line-height: 1.08;
-    letter-spacing: -0.015em;
+    /* Semibold, not bold: at display sizes bold Plex turns heavy and loses
+       the precision the rest of the page is built on. */
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.021em;
     text-wrap: balance;
+  }
+
+  /* Optical correction — tracking that suits a 20px h3 looks loose at 70px. */
+  h1 {
+    letter-spacing: -0.032em;
+    line-height: 1.05;
   }
 
   p {

@@ -8,6 +8,11 @@ type RevealProps = {
   /** Seconds. Used to stagger siblings. */
   delay?: number;
   className?: string;
+  /**
+   * Element to render as. Must be `li` when staggering list children —
+   * wrapping an <li> in a <div> breaks list semantics for screen readers.
+   */
+  as?: "div" | "li";
 };
 
 /**
@@ -17,15 +22,18 @@ type RevealProps = {
  * exists to sequence a long page, not to decorate it. When the visitor prefers
  * reduced motion it renders a plain element with no transform at all.
  */
-export function Reveal({ children, delay = 0, className }: RevealProps) {
+export function Reveal({ children, delay = 0, className, as = "div" }: RevealProps) {
   const prefersReducedMotion = useReducedMotion();
 
   if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
+    const Tag = as;
+    return <Tag className={className}>{children}</Tag>;
   }
 
+  const Motion = as === "li" ? motion.li : motion.div;
+
   return (
-    <motion.div
+    <Motion
       className={className}
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -33,6 +41,6 @@ export function Reveal({ children, delay = 0, className }: RevealProps) {
       transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
-    </motion.div>
+    </Motion>
   );
 }

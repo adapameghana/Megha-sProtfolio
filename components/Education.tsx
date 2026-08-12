@@ -10,8 +10,12 @@ export function Education() {
         <div>
           <ul className="divide-y divide-rule border-y border-rule">
             {education.map((item, i) => (
-              <Reveal key={item.qualification} delay={i * 0.04}>
-                <li className="flex items-baseline justify-between gap-6 py-5">
+              <Reveal
+                key={item.qualification}
+                delay={i * 0.04}
+                as="li"
+                className="flex items-baseline justify-between gap-6 py-5"
+              >
                   <div>
                     <h3 className="font-sans text-base font-medium tracking-normal">
                       {item.qualification}
@@ -27,7 +31,6 @@ export function Education() {
                       <p className="mt-1 font-mono text-xs text-accent">{item.score}</p>
                     )}
                   </div>
-                </li>
               </Reveal>
             ))}
           </ul>
@@ -37,8 +40,7 @@ export function Education() {
           <p className="label">Certifications</p>
           <ul className="mt-5 space-y-4">
             {certifications.map((cert, i) => (
-              <Reveal key={cert.title} delay={i * 0.04}>
-                <li className="flex gap-3">
+              <Reveal key={cert.title} delay={i * 0.04} as="li" className="flex gap-3">
                   <Award className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
                   <div>
                     <h3 className="font-sans text-base font-medium tracking-normal">
@@ -46,7 +48,6 @@ export function Education() {
                     </h3>
                     <p className="mt-0.5 font-mono text-xs text-ink-faint">{cert.issuer}</p>
                   </div>
-                </li>
               </Reveal>
             ))}
           </ul>
